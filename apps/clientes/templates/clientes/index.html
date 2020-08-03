@@ -1,0 +1,47 @@
+{% extends 'home/base.html' %}
+{% load i18n %}
+{% load static %}
+{% get_media_prefix as MEDIA_URL %}
+{% get_static_prefix as STATIC_URL %}
+
+
+{% block main %}
+	<div class="row">	 
+	  	<div class="col equel-grid">
+		    <div class="grid">
+		      <div class="grid-body py-3">
+		        <p class="card-title ml-n1">Clientes</p>
+		      </div>
+		      <div class="table-responsive">
+		        <table class="table table-hover table-sm">
+		          <thead>
+		            <tr class="solid-header">
+		              <th colspan="2" class="pl-4">Nombre</th>
+		              <th>Teléfono</th>
+		              <th>Correo electrónico</th>
+		            </tr>
+		          </thead>
+		          <tbody>
+		          	{% for item in clientes %}
+		            <tr>
+		              <td class="pr-0 pl-4">
+		                <img class="profile-img img-sm" src="{% static 'home/images/profile/male/image_4.png' %}" alt="profile image">
+		              </td>
+		              <td class="pl-md-0">
+		                <small class="text-black font-weight-medium d-block">{{item.first_name}} {{item.last_name}}</small>
+		                <span class="text-gray">
+		                  <span class="status-indicator rounded-indicator small bg-primary"></span>{{item.address}} </span>
+		              </td>
+		              <td>
+		                <small>{{item.phone}}</small>
+		              </td>
+		              <td> {{item.email}} </td>
+		            </tr>
+		            {% endfor %}
+		          </tbody>
+		        </table>
+		      </div>
+		    </div>
+	  	</div>
+	</div>
+{% endblock %}
