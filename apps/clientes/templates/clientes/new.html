@@ -1,0 +1,102 @@
+{% extends 'home/base.html' %}
+{% load i18n %}
+{% load static %}
+{% get_media_prefix as MEDIA_URL %}
+{% get_static_prefix as STATIC_URL %}
+
+
+{% block main %}
+	<div class="row">        
+    <div class="col-lg-8 equel-grid">      
+      <div class="grid ">
+        <div class="split-header">
+          <p class="grid-header">Crear cliente</p>
+          <a title="Regresar" href="{% url 'clientes-list' %}" class="btn btn-rounded social-icon-btn btn-facebook right"><i class="mdi mdi-arrow-left"></i></a>          
+        </div>
+        <div class="grid-body">
+          {% if messages %}
+            {% for message in messages %}              
+              <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                 {{message}}
+              </div>
+            {% endfor %}
+          {% endif %}
+          
+          <div class="item-wrapper">
+            <form method="post" action="" >
+                {% csrf_token %}
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="id_first_name">Nombre</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                      {% for error in form.first_name.errors %}
+                        <li class="alert-danger">{{error}}</li>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                  <div class="form-group">
+                    <label for="id_last_name">Apellido</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                      {% for error in form.last_name.errors %}
+                        <li class="alert-danger">{{error}}</li>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                      {% for error in form.email.errors %}
+                        <li class="alert-danger">{{error}}</li>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-9">
+                      <div class="form-group">
+                        <label for="id_phone">Teléfono</label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                          {% for error in form.phone.errors %}
+                            <li class="alert-danger">{{error}}</li>
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="col-lg-2" style="top: 10px;">
+                      <br>
+                      <div class="checkbox">
+                        <label for="id_last_name">
+                          {{ form.status}}
+                          Estado
+                          <i class="input-frame"></i>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="id_address">Dirección</label>
+                {{ form.address }}
+                {% if form.address.errors %}
+                  {% for error in form.address.errors %}
+                    <li class="alert-danger">{{error}}</li>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+              <button type="submit" name="save-and-add" class="btn btn-sm btn-success">Guardar y crear uno nuevo</
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+{% endblock %}

@@ -13,7 +13,7 @@ class Cliente(models.Model):
 	    address = models.CharField(max_length=400,
 	       null=False, blank=False, verbose_name='Address')
 	    phone = models.CharField(max_length=20,
-	        null=False, blank=False, verbose_name='Phone')
+	        null=False, blank=False, verbose_name='Teléfono')
 	    email = models.EmailField(
 	        null=False, blank=False, verbose_name='Email')
 
@@ -27,7 +27,7 @@ class Cliente(models.Model):
 	        verbose_name_plural = 'Clientes'
 	        default_related_name = 'cliente'
 	        db_table = 'clientes'
-	        #ordering = ['-created_at']
+	        ordering = ['-created_at']
 
 	    def __unicode__(self):
 	        u"""Customer."""

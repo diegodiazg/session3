@@ -11,16 +11,16 @@
           </div>
         </div>
         <ul class="navigation-menu">
-          <li class="nav-category-divider">MAIN</li>
-          <li>
-            <a href="index.html">
+          <li class="nav-category-divider">MENÚ</li>
+          <li {% if request.path == '/' %} class="active" {% endif %}>
+            <a href="{% url 'home-list' %}">
               <span class="link-title">Dashboard</span>
               <i class="mdi mdi-gauge link-icon"></i>
             </a>
           </li>
-          <li>
+          <li {% if '/clientes/' in request.path %} class="active" {% endif %} >
             <a href="{% url 'clientes-list' %}">
-              <span class="link-title">Clientes</span>
+              <span class="link-title">Clientes </span>
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>

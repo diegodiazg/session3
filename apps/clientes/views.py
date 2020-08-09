@@ -1,43 +1,42 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from apps.clientes.models import Cliente
 from . import forms
+from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-# Create your views here.
+from django.db.models import Value
+from django.db.models.functions import Concat
 
-
-class ClientesListView(ListView):
-    """carpeta List View.
-
-    Attributes:
-        context_object_name (str): Description
-        model (TYPE): Description
-        template_name (str): Description
-    """
+class ClientesListView(ListView):    
 
     template_name = 'clientes/index.html'
     model = Cliente
     context_object_name = 'clientes'
-    paginate_by =  10
+    paginate_by =  4
 
-    def get_queryset(self):
-        """Filter by type and customer.
+    def get_queryset(self):        
+        queryset = super(ClientesListView, self).get_queryset()        
 
-        Returns:
-            TYPE: Description
-        """
-        queryset = super(ClientesListView, self).get_queryset()
-        queryset = Cliente.objects.all()
+        queryset = Cliente.objects.all()        
+        if 'name' in self.request.GET:
+            name = self.request.GET['name']
+            queryset = queryset.annotate(search_name=Concat('first_name', Value(' '), 'last_name'))
+            queryset = queryset.filter(search_name__icontains=name)
+
         return queryset
 
     def get_context_data(self, **kwargs):   # noqa
         context = super(ClientesListView, self).get_context_data(**kwargs)
+
+        if 'name' in self.request.GET:
+            name = self.request.GET['name']            
+            context['name'] = name
+
         return context
 
 
-class ClienteNewView(CreateView):
-    """Prduct Create View."""
+class ClientesNewView(CreateView):    
 
     template_name = 'clientes/new.html'
     model = Cliente
@@ -45,21 +44,20 @@ class ClienteNewView(CreateView):
     success_url = reverse_lazy('super:clientes-list')
 
     def get_context_data(self, **kwargs):   # noqa
-        context = super(ClienteNewView, self).get_context_data(**kwargs)
+        context = super(ClientesNewView, self).get_context_data(**kwargs)
         return context
 
-    def form_valid(self, form):
-        """If the form is valid, save the associated model."""
+    def form_valid(self, form):        
         self.object = form.save(commit=False)
         self.object.save()
 
-        return super(ClienteNewView, self).form_valid(form)
+        return super(ClientesNewView, self).form_valid(form)
 
     def get_success_url(self):
         """."""
         messages.add_message(
             self.request, messages.SUCCESS,
-            _("Creacion exito"))
+            "Creación exitosa")
         if 'save-and-add' in self.request.POST:
             return reverse('clientes-list')
         else:
@@ -69,11 +67,11 @@ class ClienteNewView(CreateView):
         """."""
         messages.add_message(
             self.request, messages.ERROR,
-            _("Please correct the error below."))
+            "Por favor corrige los errores de abajo.")
         return self.render_to_response(self.get_context_data(form=form))
 
 
-class ClienteUpdateView(UpdateView):
+class ClientesUpdateView(UpdateView):
     """."""
 
     template_name = 'clientes/edit.html'
@@ -82,36 +80,58 @@ class ClienteUpdateView(UpdateView):
     pk_url_kwarg = 'id'
     context_object_name = 'cliente'
 
-    def get_queryset(self):
-        """Filter by type and customer."""
-        queryset = super(ClienteUpdateView, self).get_queryset()
+    def get_queryset(self):        
+        queryset = super(ClientesUpdateView, self).get_queryset()
         return queryset
 
     def get_context_data(self, **kwargs):   # noqa
-        context = super(ClienteUpdateView, self).get_context_data(**kwargs)       
+        context = super(ClientesUpdateView, self).get_context_data(**kwargs)       
         return context
 
     def form_valid(self, form):
-        """If the form is valid, save the associated model."""
-        #self.object = form.save(commit=False)
-        #self.object.save()
-
-        return super(ClienteUpdateView, self).form_valid(form)
+        return super(ClientesUpdateView, self).form_valid(form)
 
     def get_success_url(self):
         """."""
         messages.add_message(
             self.request, messages.SUCCESS,
-            _("Updated success."))
+            "Actualización exitosa.")
         if 'save-and-add' in self.request.POST:
-            return reverse('cliente-new')
+            return reverse('clientes-new')
         else:
-            return reverse('cliente-edit', args=[self.object.id, ])
+            return reverse('clientes-edit', args=[self.object.id, ])
 
     def form_invalid(self, form):
         """."""
         messages.add_message(
             self.request, messages.ERROR,
-            _("Please correct the error below."))
+            "Por favor corrige los errores de abajo.")
         return self.render_to_response(self.get_context_data(form=form))
 
+
+class ClientesDeleteView(DeleteView):
+    """."""
+
+    template_name = 'clientes/delete.html'
+    model = Cliente
+    pk_url_kwarg = 'id'
+
+    def get_context_data(self, **kwargs):
+        """Judge Delete."""
+        context = super(ClientesDeleteView, self).get_context_data(**kwargs)
+
+        cliente = get_object_or_404(Cliente, id = self.object.id)             
+        context['cliente'] = cliente
+      
+        return context
+
+    def get_queryset(self):        
+        queryset = super(ClientesDeleteView, self).get_queryset()
+        return queryset
+
+    def get_success_url(self):
+        """."""
+        messages.add_message(
+            self.request, messages.SUCCESS,
+            "El objeto se ha borrado exitosamente")
+        return reverse('clientes-list')

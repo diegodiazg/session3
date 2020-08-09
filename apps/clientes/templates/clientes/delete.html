@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+{% load i18n %}
+{% load static %}
+{% get_media_prefix as MEDIA_URL %}
+{% get_static_prefix as STATIC_URL %}
+
+
+{% block main %}
+	<div class="row">        
+    <div class="col-lg-8 equel-grid">      
+      <div class="grid ">
+        <div class="split-header">
+          <p class="grid-header">Eliminar cliente</p>
+          <a href="{% url 'clientes-list' %}" class="btn btn-rounded social-icon-btn btn-facebook right"><i class="mdi mdi-arrow-left"></i></a>          
+        </div>
+        <div class="grid-body">
+          {% if messages %}
+            {% for message in messages %}              
+              <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{message}}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% if form.errors %}
+            {% for error in form.errors %}
+              <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                 {{error}}
+              </div>
+            {% endfor %}
+          {% endif %}
+          <div class="item-wrapper">
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                  <div class="alert alert-danger alert-dismissible">
+                    Seguro deseas borar a
+                    {{cliente.full_name}}?
+                  </div>
+                    <input type="hidden" name="post" value="yes" />
+                    <button class="btn btn-warning " type="submit">Sí, estoy seguro</button>
+                    <a onclick="window.history.back();" class="btn btn-success text-white">No, regresar</a>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+{% endblock %}

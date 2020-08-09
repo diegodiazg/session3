@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Label - Premium Responsive Bootstrap 4 Admin & Dashboard Template</title>
+    <title>Sesión tres</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'home/vendors/iconfonts/mdi/css/materialdesignicons.css' %}">
     <!-- endinject -->
@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{% static 'home/css/demo_1/style.css' %}">
     <!-- Layout style -->
     <link rel="shortcut icon" href="{% static 'home/images/favicon.ico' %}" />
+    {% block extra_style  %} {% endblock %}
+
   </head>
   <body class="header-fixed">
     <!-- partial:partials/_header.html -->
@@ -29,12 +31,6 @@
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
           <div class="content-viewport">
-            <div class="row">
-              <div class="col-12 py-5">
-                <h4>Dashboard</h4>
-                <p class="text-gray">Welcome aboard, Allen Clerk</p>
-              </div>
-            </div>
             {% block main %} {% endblock %}
           </div>
         </div>
