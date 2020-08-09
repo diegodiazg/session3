@@ -51,9 +51,9 @@
 		        <form action="#" class="t-header-search-box2">
 		          <div class="input-group">
 		          	{% if name %}
-		          		<input type="text"  value="{{name}}" name="name" class="form-control" id="inlineFormInputGroup" placeholder="Nombre cliente" autocomplete="off">
+		          		<input type="text"  value="{{name}}" autofocus onfocus="this.select()"  name="name" class="form-control" id="inlineFormInputGroup" placeholder="Nombre cliente" autocomplete="off">
 		          	{% else %}
-		          		<input type="text" name="name" class="form-control" id="inlineFormInputGroup" placeholder="Nombre o apelllido de cliente" autocomplete="off">
+		          		<input type="text" autofocus name="name" class="form-control" id="inlineFormInputGroup" placeholder="Nombre o apelllido de cliente" autocomplete="off">
 		          	{% endif %}
 		            <button style="height: 32px;" title="Consultar" class="btn btn-primary" type="submit"><i class="mdi mdi-send"></i></button>
 		        	<a title="Limpiar" style="height: 32px;" class="btn btn-danger" href="{% url 'clientes-list'%}"><i class="mdi mdi-window-close"></i></a>
