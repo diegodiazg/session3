@@ -24,10 +24,10 @@
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
-          <li>
-            <a href="pages/charts/chartjs.html">
-              <span class="link-title">Charts</span>
-              <i class="mdi mdi-chart-donut link-icon"></i>
+          <li {% if '/clientes/' in request.path %} class="active" {% endif %} >
+            <a href="{% url 'clientes-list' %}">
+              <span class="link-title">Productos</span>
+              <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
           <li>
