@@ -31,6 +31,7 @@
                   <div class="form-group">
                     <label for="id_first_name">Nombre</label>
                     {{ form.first_name }}
+
                     {% if form.first_name.errors %}
                       {% for error in form.first_name.errors %}
                         <li class="alert-danger">{{error}}</li>
@@ -85,6 +86,7 @@
               <div class="form-group">
                 <label for="id_address">Dirección</label>
                 {{ form.address }}
+                
                 {% if form.address.errors %}
                   {% for error in form.address.errors %}
                     <li class="alert-danger">{{error}}</li>

@@ -13,7 +13,7 @@ class ClientesListView(ListView):
     template_name = 'clientes/index.html'
     model = Cliente
     context_object_name = 'clientes'
-    paginate_by =  4
+    paginate_by =  2
 
     def get_queryset(self):        
         queryset = super(ClientesListView, self).get_queryset()        

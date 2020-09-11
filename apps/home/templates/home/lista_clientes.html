@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CLIENTES</title>
+</head>
+<body>
+	<h1>Clientes</h1>
+	<table>
+		<thead>
+			<th>#</th>
+			<th>Nombre</th>
+			<th>Teléfono</th>
+		</thead>
+		<tbody>
+			{%for cliente in clientes%}
+				<tr>
+					<td>
+						<a href="{% url 'detalle-clientes' cliente.id %}">
+							{{ forloop.counter}}
+						</a>
+					</td>
+					<td>{{cliente.full_name}}</td>
+					<td>{{cliente.phone}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>
