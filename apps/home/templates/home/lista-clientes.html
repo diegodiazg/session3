@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>CLIENTES</title>
+	</head>
+	<body>
+		<h1>Clientes</h1>
+		<p>Lista de clientes</p>
+		<table>
+			<thead>
+				<th>Nombre</th>
+				<th>Teléfono</th>
+			</thead>
+			<tbody>
+				{% for cliente in clientes %}
+				<tr>
+					<td>{{cliente.full_name}}</td>
+					<td>{{cliente.phone}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>
