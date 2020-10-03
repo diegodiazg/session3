@@ -1,0 +1,11 @@
+<h2>BORAR CLIENTE {{cliente}}</h2>
+<a href="{% url 'lista-clientes' %}">REGRESAR</a>
+
+<form method="POST"> 
+  
+    <!-- Security token -->
+    {% csrf_token %} 
+  
+    <input type="submit" name="borrar" value="Borrar">
+    <a href="{% url 'lista-clientes' %}">Cancelar</a>
+</form>

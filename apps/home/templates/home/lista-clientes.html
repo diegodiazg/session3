@@ -4,17 +4,20 @@
 	</head>
 	<body>
 		<h1>Clientes</h1>
+		<a href="{% url 'crear-clientes'%}">Crear cliente</a>
 		<p>Lista de clientes</p>
-		<table>
+		<table border="1">
 			<thead>
 				<th>Nombre</th>
 				<th>Teléfono</th>
+				<th>Borrar</th>
 			</thead>
 			<tbody>
 				{% for cliente in clientes %}
 				<tr>
-					<td>{{cliente.full_name}}</td>
+					<td> <a href="{% url 'editar-cliente' cliente.id %}">{{cliente.full_name}}</a> </td>
 					<td>{{cliente.phone}}</td>
+					<td><a href="{% url 'borrar-cliente' cliente.id %}">Borrar</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
