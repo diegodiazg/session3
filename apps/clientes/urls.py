@@ -12,6 +12,12 @@ urlpatterns = [
     url(r'^(?P<id>[^/]+)/delete/$',
         views.ClientesDeleteView.as_view(), name="clientes-delete"),
 
+    #CRUD BASICO
+	url(r'^crud-r/$', views.crud_r, name='crud-r'),
+	url(r'^crud-c/$', views.crud_c, name='crud-c'),
+	url(r'^crud-u/(?P<cliente_id>[\w\- ]+)/edit/$', views.crud_u, name='crud-u'),
+    url(r'^crud-d/(?P<cliente_id>[\w\- ]+)/delete/$', views.crud_d, name='crud-d')
+
 ]
 
 

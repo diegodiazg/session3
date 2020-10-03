@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>Borrar cliente</title>
+	</head>
+	<body>
+		<h1>Borrar cliente</h1>
+		<p>Realmente desea borrar al cliente: {{cliente.full_name}}?</p>
+		<form action="" method="post">
+			{% csrf_token %}
+			
+			<input type="submit" name="submit" value="Sí, borar">
+			<br>
+			<a href="{% url 'crud-r'%}">No, regresar</a>
+		</form>
+	</body>							
+</html>

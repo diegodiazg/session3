@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>Lista clientes</title>
+	</head>
+	<body>
+		<h1>Lista clientes</h1>
+
+		<a href="{% url 'crud-c' %}">Crear cliente</a>
+		<br>
+		<br>
+		<table border="1">
+			<thead>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Opciones</th>
+			</thead>
+			<tbody>
+				{% for cliente in clientes %}
+					<tr>
+					 	<td>{{cliente.first_name}}</td>
+						<td>{{cliente.last_name}}</td>
+						<td>
+							<a href="{% url 'crud-d' cliente.id %}">Borrar</a>
+							<a href="{% url 'crud-u' cliente.id %}">Editar</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>																																																																																															

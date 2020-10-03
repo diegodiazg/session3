@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from apps.clientes.models import Cliente
 from . import forms
@@ -135,3 +135,49 @@ class ClientesDeleteView(DeleteView):
             self.request, messages.SUCCESS,
             "El objeto se ha borrado exitosamente")
         return reverse('clientes-list')
+
+
+def crud_r(request):
+    clientes = Cliente.objects.all()  # se obtienen todos los clientes
+    context = {'clientes': clientes}   
+    return render(request, 'clientes/crud_r.html', context) 
+
+def crud_c(request):
+    context = { }
+
+    form = forms.ClienteForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('crud-r')
+
+    context['form'] = form
+    return render(request, 'clientes/crud_c.html', context)
+
+def crud_u(request, cliente_id):
+
+    try:
+        cliente = Cliente.objects.get(pk=cliente_id)
+    except Exception as e:
+        return render(request, 'clientes/404.html')
+
+    form = forms.ClienteForm(request.POST or None, instance=cliente)
+
+    if form.is_valid():
+        form.save()
+        return redirect('crud-r')
+
+    context = { 'form': form }
+    return render(request, 'clientes/crud_u.html', context)
+
+def crud_d(request, cliente_id):
+    try:
+        cliente = Cliente.objects.get(pk=cliente_id)
+    except Exception as e:
+        return render(request, 'clientes/404.html')
+
+    if request.POST:
+        cliente.delete()
+        return redirect('crud-r')
+
+    context = { 'cliente': cliente }
+    return render(request, 'clientes/crud_d.html', context )

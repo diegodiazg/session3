@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>Crea cliente</title>
+	</head>
+	<body>
+		<h1>Crear cliente</h1>
+		<a href="{% url 'crud-r'%}">Regresar</a>
+		<form action="" method="POST">
+			{% csrf_token%}
+
+			{{form.as_p}}
+			<a href="{% url 'crud-r'%}">Cancelar</a>
+			<input type="submit" name="submit" value="Guardar">
+		</form>
+	</body>
+</html>								
